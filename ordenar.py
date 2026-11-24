@@ -1,0 +1,24 @@
+from conector import ConectorMongoDB
+
+conector = ConectorMongoDB()
+cliente = conector.conectarse()
+librosColeccion = conector.coleccion()
+
+print("Listado de libros ordenados titulo Ascendente")
+
+librosOrdenadosPorTitulo = librosColeccion.find().sort("titulo")
+
+for l in librosOrdenadosPorTitulo:
+ print(l)
+
+print("Listado de libros ordenados por precio descendente")
+
+librosOrdenadosPorPrecioDescendente = librosColeccion.find().sort("precio",-1)
+for l in librosOrdenadosPorPrecioDescendente:
+ print(l)
+
+print("Listado de libros filtrados por precio y ordenados por número de Páginas", )
+
+librosFiltradoPorPrecioyOrdenadosPorPaginas = librosColeccion.find({ "precio":  { "$lt": 20 } }).sort("paginas")
+for l in librosFiltradoPorPrecioyOrdenadosPorPaginas:
+ print(l)
